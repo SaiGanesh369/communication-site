@@ -2,7 +2,7 @@
 //  SIPPY'S AI TUTOR  ·  script.js
 // ═══════════════════════════════════════════════════════════
 
-const GEMINI_MODEL = "gemini-3.5-flash";
+const GEMINI_MODEL = "gemini-2.5-flash";
 
 // ── DOM ─────────────────────────────────────────────────────
 const el = {

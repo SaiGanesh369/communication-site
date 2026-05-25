@@ -2,7 +2,7 @@
 //  SIPPY'S AI TUTOR  ·  script.js
 // ═══════════════════════════════════════════════════════════
 
-const GEMINI_MODEL = "gemini-2.5-flash";
+const GEMINI_MODEL = "gemini-3.5-flash";
 
 // ── DOM ─────────────────────────────────────────────────────
 const el = {
@@ -342,15 +342,11 @@ function stopListening() {
 // ══════════════════════════════════════════════════════════════
 async function validateApiKey(key) {
     try {
+        // Use the models list endpoint — works with ANY valid API key
+        // regardless of which model names are currently available
         const r = await fetch(
-            apiUrl(key),
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [{ role: "user", parts: [{ text: "Say OK" }] }],
-                }),
-            }
+            `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(key)}`,
+            { method: "GET" }
         );
         return r.ok;
     } catch { return false; }

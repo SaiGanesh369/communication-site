@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Sippy's AI Tutor 🐭</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ░░ Floating background decorations ░░ -->
+    <div class="bg-floats" aria-hidden="true">
+        <span style="--i:0">🧀</span>
+        <span style="--i:1">⭐</span>
+        <span style="--i:2">🐾</span>
+        <span style="--i:3">✨</span>
+        <span style="--i:4">🧀</span>
+        <span style="--i:5">⭐</span>
+        <span style="--i:6">🏃</span>
+        <span style="--i:7">✨</span>
+        <span style="--i:8">🎯</span>
+    </div>
+
+    <main class="app-shell">
+
+        <!-- ═══════════════════════════════════
+             LEFT — COACH PANEL
+        ═══════════════════════════════════ -->
+        <section class="coach-panel" aria-labelledby="appTitle">
+
+            <!-- Brand -->
+            <div class="brand-row">
+                <div class="brand-icon" aria-hidden="true">🐭</div>
+                <div>
+                    <p class="eyebrow">AI Speaking Coach</p>
+                    <h1 id="appTitle">Sippy's<br>Tutor</h1>
+                </div>
+            </div>
+
+            <!-- ★ T&J Hero Banner ★ -->
+            <div class="tj-banner" aria-hidden="true">
+
+                <!-- star particles -->
+                <div class="stars">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+
+                <div class="tj-stage">
+                    <!-- Tom -->
+                    <div class="tj-char tj-left">
+                        <div class="char-halo tom-halo"></div>
+                        <div class="char-face">🐱</div>
+                        <div class="char-badge tom-badge">Coach Tom</div>
+                    </div>
+
+                    <!-- VS -->
+                    <div class="tj-vs-wrap">
+                        <span class="tj-vs">VS</span>
+                        <span class="tj-vs-spark">💥</span>
+                    </div>
+
+                    <!-- Jerry -->
+                    <div class="tj-char tj-right">
+                        <div class="char-halo jerry-halo"></div>
+                        <div class="char-face">🐭</div>
+                        <div class="char-badge jerry-badge">Jerry (You)</div>
+                    </div>
+                </div>
+
+                <div class="tj-bottom">
+                    <span class="chase-line"></span>
+                    <p class="tj-tagline">🏆 Chase Your English Goals!</p>
+                    <span class="chase-line"></span>
+                </div>
+
+            </div>
+
+            <!-- Setup Form -->
+            <form id="setupForm" class="setup-grid">
+
+                <label class="field">
+                    <span class="field-label">🔑 Gemini API Key</span>
+                    <input id="apiKey" type="password" autocomplete="off"
+                        placeholder="Paste your Gemini API key…" />
+                </label>
+
+                <label class="field">
+                    <span class="field-label">🎯 Practice Topic</span>
+                    <input id="topic" type="text"
+                        placeholder="e.g., job interview, travel story…" />
+                </label>
+
+                <div class="inline-fields">
+                    <label class="field">
+                        <span class="field-label">Session</span>
+                        <select id="sessionType">
+                            <option value="workplace">💼 Workplace</option>
+                            <option value="interview">🎤 Interview</option>
+                            <option value="storytelling">📖 Story</option>
+                            <option value="daily">☀️ Daily Chat</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span class="field-label">Duration</span>
+                        <select id="sessionLength">
+                            <option value="1">1 min</option>
+                            <option value="5">5 min</option>
+                            <option value="10">10 min</option>
+                            <option value="15">15 min</option>
+                            <option value="20">20 min</option>
+                        </select>
+                    </label>
+                </div>
+
+                <button class="btn-start" id="startBtn" type="submit">
+                    <span>🚀</span> Start Practice!
+                </button>
+
+            </form>
+
+            <!-- Stats Strip -->
+            <div class="stats-row">
+                <div class="stat-card blue">
+                    <span class="s-emoji">❓</span>
+                    <span id="questionCount" class="s-val">0</span>
+                    <span class="s-lbl">Questions</span>
+                </div>
+                <div class="stat-card amber">
+                    <span class="s-emoji">⏱️</span>
+                    <span id="timer" class="s-val">--:--</span>
+                    <span class="s-lbl">Time</span>
+                </div>
+                <div class="stat-card gold">
+                    <span class="s-emoji">⭐</span>
+                    <span id="score" class="s-val">--</span>
+                    <span class="s-lbl">Score</span>
+                </div>
+                <div class="stat-card green">
+                    <span class="s-emoji">📈</span>
+                    <span id="overallProgress" class="s-val">--</span>
+                    <span class="s-lbl">Overall</span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ═══════════════════════════════════
+             RIGHT — PRACTICE PANEL
+        ═══════════════════════════════════ -->
+        <section class="practice-panel" aria-label="Practice conversation">
+
+            <!-- Timer progress bar (top edge) -->
+            <div class="timer-rail">
+                <div id="timerBar" class="timer-fill"></div>
+            </div>
+
+            <!-- Panel header -->
+            <header class="practice-header">
+                <div>
+                    <p class="eyebrow">🎬 Live Session</p>
+                    <h2 id="currentTopic">Choose a topic to begin!</h2>
+                </div>
+                <div id="status" class="status-pill sp-ready">Ready</div>
+            </header>
+
+            <!-- Chat feed -->
+            <div id="chatBox" class="chat-box" aria-live="polite">
+                <article class="message ai-msg">
+                    <div class="av av-tom">🐱</div>
+                    <div class="bubble tom-bubble">
+                        <div class="bubble-name">Coach Tom</div>
+                        <p>Hey Jerry! 👋 Choose a topic on the left and I'll fire questions at you. Speak your answer, I'll review it and give real feedback. Ready to chase those English goals? 🏃‍♂️💨</p>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Answer input -->
+            <form id="answerForm" class="answer-box">
+
+                <!-- Recording indicator -->
+                <div id="recordingHint" class="rec-bar hidden">
+                    <span class="rec-dot"></span>
+                    <span class="rec-text">Recording — speak clearly!</span>
+                    <span class="rec-wave">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </span>
+                </div>
+
+                <textarea
+                    id="answerInput"
+                    rows="3"
+                    placeholder="🎙️ Click Speak → talk → Stop Speaking → then hit Send!"
+                    disabled
+                ></textarea>
+
+                <div class="controls">
+                    <button id="stopBtn"  class="btn-end"  type="button"  disabled>⛔ End</button>
+                    <div class="mic-group">
+                        <button id="micBtn"  class="btn-mic"  type="button"  disabled>🎙️ Speak</button>
+                        <button id="nextBtn" class="btn-skip" type="button"  disabled>⏭️ Skip</button>
+                    </div>
+                    <button id="sendBtn"  class="btn-send" type="submit"  disabled>Send ➤</button>
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
